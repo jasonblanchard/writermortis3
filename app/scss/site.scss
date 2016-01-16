@@ -1,0 +1,27 @@
+@import 'app/scss/settings';
+
+body {
+  background: $theme-background;
+  color: $theme-text-color;
+  font-family: 'Helvetica Neue', sans-serif;
+  margin: 0;
+}
+
+a {
+  color: $theme-medium-color;
+  text-decoration: none;
+
+  &:visited {
+    color: $theme-link-color;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}

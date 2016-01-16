@@ -1,0 +1,40 @@
+@import 'app/scss/settings';
+
+.RootContainer-headerWrapper {
+  background: $theme-medium-color;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.RootContainer-mainNav {
+  font-weight: bold;
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+}
+
+.RootContainer-mainNavLinks {
+  display: flex;
+
+  li {
+    margin-right: 10px;
+  }
+
+  a {
+    &:hover {
+      border-bottom: 2px solid $theme-link-color;
+      text-decoration: none;
+    }
+  }
+
+  .active {
+    border-bottom: 4px solid $theme-link-color;
+  }
+}
+
+.RootContainer-mainContent {
+  padding: 8px;
+}

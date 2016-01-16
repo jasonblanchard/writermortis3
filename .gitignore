@@ -1,0 +1,6 @@
+node_modules/*
+!node_modules/app
+!node_modules/build
+.DS_Store
+*.swp
+npm-debug.*
