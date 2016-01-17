@@ -13,6 +13,8 @@ if (process.env.NODE_ENV === 'production') {
   page = require('./page.compiled');
 }
 
+let id = 99;
+
 const config = env[process.env.NODE_ENV || 'development'];
 
 const app = express();
@@ -20,6 +22,7 @@ const app = express();
 app.use(express.static('public'));
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('views', __dirname + '/../../server_views');
 app.engine('handlebars', exphbs());
@@ -29,6 +32,16 @@ app.get('/api/stories/:id', (req, res) => {
   const storyId = Number(req.params.id);
   const currentStory = stories.find(story => story.id === storyId);
   res.json(currentStory);
+});
+
+app.post('/api/stories/:id/pieces', (req, res) => {
+  console.log(req.body);
+  const storyId = Number(req.params.id);
+  const currentStoryIndex = stories.findIndex(story => story.id === storyId);
+  const newPiece = req.body.piece;
+  newPiece.id = id++;
+  stories[currentStoryIndex].pieces.push(newPiece);
+  res.json(newPiece);
 });
 
 app.get('/*', (req, res) => {

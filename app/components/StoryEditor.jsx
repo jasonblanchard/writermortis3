@@ -1,4 +1,3 @@
-import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import React, { Component, PropTypes } from 'react';
 
@@ -23,10 +22,10 @@ export default class StoryEditor extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onSubmit(Immutable.fromJS({
+    this.props.onSubmit(this.props.story.get('id'), {
       text: this.state.newPiece,
       clientId: this.props.currentClientId,
-    }));
+    });
     this.setState({
       newPiece: '',
     });

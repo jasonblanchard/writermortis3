@@ -2,8 +2,6 @@ import actionConstants from 'app/actions/constants';
 import fetch from 'isomorphic-fetch';
 import Immutable from 'immutable';
 
-let id = 99;
-
 export function addNewPiece(piece) {
   return {
     type: actionConstants.ADD_NEW_PIECE,
@@ -11,11 +9,19 @@ export function addNewPiece(piece) {
   };
 }
 
-export function requestAddNewPiece(piece) {
+export function requestAddNewPiece(storyId, piece) {
   return function (dispatch) {
-    let newPiece = piece;
-    newPiece = newPiece.set('id', id++);
-    return dispatch(addNewPiece(newPiece));
+    fetch(`/api/stories/${storyId}/pieces`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'post',
+      body: JSON.stringify({ piece }),
+    }).then(response => {
+      return response.json();
+    }).then(newPiece => {
+      dispatch(addNewPiece(Immutable.fromJS(newPiece)));
+    });
   };
 }
 
