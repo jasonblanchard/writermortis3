@@ -4,13 +4,6 @@ import Immutable from 'immutable';
 
 let id = 99;
 
-export function addSomeValue(value) {
-  return {
-    type: actionConstants.ADD_SOME_VALUE,
-    value,
-  };
-}
-
 export function addNewPiece(piece) {
   return {
     type: actionConstants.ADD_NEW_PIECE,

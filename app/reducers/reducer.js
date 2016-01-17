@@ -2,15 +2,6 @@ import actionConstants from 'app/actions/constants';
 import { combineReducers } from 'redux';
 import Immutable from 'immutable';
 
-function someValues(state = [], action) {
-  switch (action.type) {
-    case actionConstants.ADD_SOME_VALUE:
-      return [...state, action.value];
-    default:
-      return state;
-  }
-}
-
 function story(state = Immutable.fromJS({}), action) {
   switch (action.type) {
     case actionConstants.LOAD_STORY:
@@ -33,7 +24,6 @@ function currentClientId(state = null, action) {
 }
 
 const app = combineReducers({
-  someValues,
   story,
   currentClientId,
 });
