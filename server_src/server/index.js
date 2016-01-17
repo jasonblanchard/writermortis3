@@ -22,7 +22,6 @@ const app = express();
 app.use(express.static('public'));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('views', __dirname + '/../../server_views');
 app.engine('handlebars', exphbs());
@@ -35,7 +34,6 @@ app.get('/api/stories/:id', (req, res) => {
 });
 
 app.post('/api/stories/:id/pieces', (req, res) => {
-  console.log(req.body);
   const storyId = Number(req.params.id);
   const currentStoryIndex = stories.findIndex(story => story.id === storyId);
   const newPiece = req.body.piece;

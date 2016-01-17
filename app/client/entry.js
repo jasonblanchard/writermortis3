@@ -7,9 +7,26 @@ import { Router, browserHistory } from 'react-router';
 import '../scss/site.scss';
 
 // const initialState = JSON.parse(document.getElementById('init-data').value);
-const initialState = {
-  currentClientId: 1, // TODO: Load this from localStorage. Set it if it's not there.
-};
+
+// TODO: Move this.
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
+
+let currentClientId = localStorage.getItem('clientId');
+
+if (!currentClientId) {
+  currentClientId = guid();
+  currentClientId = localStorage.setItem('clientId', currentClientId);
+}
+
+const initialState = { currentClientId };
 
 const store = configureStore(initialState);
 

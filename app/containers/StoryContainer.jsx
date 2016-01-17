@@ -16,7 +16,7 @@ class StoryContainer extends Component {
 
   isStoryComplete() {
     const story = this.props.story;
-    return story.get('pieces').size >= story.maxPieces;
+    return story.get('pieces').size >= story.get('maxPieces');
   }
 
   render() {
@@ -25,7 +25,7 @@ class StoryContainer extends Component {
     return (
       <div className="StoryContainer">
         <div className="StoryContainer-StoryWrapper">
-          <h2>{story.title}</h2>
+          <h2>{story.get('title')}</h2>
           {this.isStoryComplete() ? <Story story={story} /> : <StoryEditor currentClientId={currentClientId} story={story} onSubmit={addNewPiece} />}
         </div>
         <div className="StoryContainer-StoryStatsWrapper">
@@ -40,7 +40,7 @@ class StoryContainer extends Component {
 StoryContainer.propTypes = {
   story: ImmutablePropTypes.map,
   addNewPiece: PropTypes.func,
-  currentClientId: PropTypes.number,
+  currentClientId: PropTypes.string,
   requestLoadStory: PropTypes.func,
   params: PropTypes.object,
 };

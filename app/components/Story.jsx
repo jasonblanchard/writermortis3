@@ -5,18 +5,18 @@ export default class Story extends Component {
 
   renderPiece(piece) {
     return (
-      <p key={piece.id}>
-        {piece.text}
+      <p key={piece.get('id')}>
+        {piece.get('text')}
       </p>
     );
   }
-
 
   render() {
     const story = this.props.story;
     return (
       <div>
-        {story.pieces.map(this.renderPiece)}
+        [complete]
+        {story.get('pieces').map(this.renderPiece)}
       </div>
     );
   }

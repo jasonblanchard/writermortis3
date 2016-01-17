@@ -35,6 +35,17 @@ export default class StoryEditor extends Component {
     return this.props.currentClientId === this.props.story.get('pieces').last().get('clientId');
   }
 
+  renderForm() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <div>
+          <textarea value={this.state.newPiece} onChange={this.handleChange} />
+        </div>
+        <input type="submit" value="add" />
+      </form>
+    );
+  }
+
   render() {
     const story = this.props.story;
     const piece = story.get('pieces').last();
@@ -44,13 +55,7 @@ export default class StoryEditor extends Component {
           <p>{piece.get('text')}</p>
         </div>
         <div className="StoryEditor-pieceComposerWrapper">
-          {this.isCurrentClientLastAuthor() ? 'You added the last piece' : null}
-          <form onSubmit={this.handleSubmit}>
-            <div>
-              <textarea value={this.state.newPiece} onChange={this.handleChange} />
-            </div>
-            <input type="submit" value="add" />
-          </form>
+          {this.isCurrentClientLastAuthor() ? 'You added the last piece' : this.renderForm()}
         </div>
       </div>
     );
@@ -60,5 +65,5 @@ export default class StoryEditor extends Component {
 StoryEditor.propTypes = {
   story: ImmutablePropTypes.map.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  currentClientId: PropTypes.number,
+  currentClientId: PropTypes.string,
 };
