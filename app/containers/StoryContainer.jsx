@@ -11,7 +11,7 @@ import './StoryContainer.scss';
 class StoryContainer extends Component {
 
   componentWillMount() {
-    this.props.requestLoadStory(123);
+    this.props.requestLoadStory(this.props.params.storyId);
   }
 
   isStoryComplete() {
@@ -42,6 +42,7 @@ StoryContainer.propTypes = {
   addNewPiece: PropTypes.func,
   currentClientId: PropTypes.number,
   requestLoadStory: PropTypes.func,
+  params: PropTypes.object,
 };
 
 function mapStateToProps(state) {
