@@ -9,6 +9,8 @@ import '../scss/site.scss';
 // const initialState = JSON.parse(document.getElementById('init-data').value);
 const initialState = require('../../server_src/server/fixtures/initialStateFixture');
 
+initialState.currentClientId = 1;
+
 const store = configureStore(initialState);
 
 ReactDOM.render(

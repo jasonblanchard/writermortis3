@@ -1,10 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import React, { Component } from 'react';
 
 export default class Story extends Component {
 
   renderPiece(piece) {
     return (
-      <p>
+      <p key={piece.id}>
         {piece.text}
       </p>
     );
@@ -12,14 +13,15 @@ export default class Story extends Component {
 
 
   render() {
+    const story = this.props.story;
     return (
       <div>
-        {this.props.story.map(this.renderPiece)}
+        {story.pieces.map(this.renderPiece)}
       </div>
     );
   }
 }
 
 Story.propTypes = {
-  story: PropTypes.object,
+  story: ImmutablePropTypes.map,
 };
