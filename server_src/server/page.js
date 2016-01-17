@@ -30,7 +30,7 @@ export default (req, res) => {
       );
 
       res.render('index', {
-        markup: markup,
+        markup,
         initialState: JSON.stringify(data),
         scriptSource: config.SCRIPT_SOURCE,
         styleSource: config.STYLE_SOURCE,

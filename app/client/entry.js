@@ -6,10 +6,9 @@ import configureStore from 'app/configureStore';
 import { Router, browserHistory } from 'react-router';
 import '../scss/site.scss';
 
-// const initialState = JSON.parse(document.getElementById('init-data').value);
-const initialState = require('../../server_src/server/fixtures/initialStateFixture');
-
-initialState.currentClientId = 1;
+const initialState = {
+  currentClientId: 1, // TODO: Load this from localStorage. Set it if it's not there.
+};
 
 const store = configureStore(initialState);
 

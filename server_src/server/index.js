@@ -3,6 +3,7 @@ import env from '../../env.json';
 import express from 'express';
 import exphbs from 'express-handlebars';
 import bodyParser from 'body-parser';
+import stories from './fixtures/storiesFixture';
 
 const PORT = process.env.PORT || 8080;
 
@@ -23,6 +24,12 @@ app.use(bodyParser.json());
 app.set('views', __dirname + '/../../server_views');
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
+
+app.get('/api/stories/:id', (req, res) => {
+  const storyId = Number(req.params.id);
+  const currentStory = stories.find(story => story.id === storyId);
+  res.json(currentStory);
+});
 
 app.get('/*', (req, res) => {
   if (process.env.NODE_ENV === 'production') {

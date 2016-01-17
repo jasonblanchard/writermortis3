@@ -42,7 +42,7 @@ export default class StoryEditor extends Component {
     return (
       <div className="StoryEditor">
         <div className="StoryEditor-pieceWrapper">
-          {piece.get('text')}
+          <p>{piece.get('text')}</p>
         </div>
         <div className="StoryEditor-pieceComposerWrapper">
           {this.isCurrentClientLastAuthor() ? 'You added the last piece' : null}

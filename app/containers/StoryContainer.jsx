@@ -10,6 +10,10 @@ import './StoryContainer.scss';
 
 class StoryContainer extends Component {
 
+  componentWillMount() {
+    this.props.requestLoadStory(123);
+  }
+
   isStoryComplete() {
     const story = this.props.story;
     return story.get('pieces').size >= story.maxPieces;
@@ -17,6 +21,7 @@ class StoryContainer extends Component {
 
   render() {
     const { story, addNewPiece, currentClientId } = this.props;
+    if (!this.props.story.get('id')) return null;
     return (
       <div className="StoryContainer">
         <div className="StoryContainer-StoryWrapper">
@@ -36,6 +41,7 @@ StoryContainer.propTypes = {
   story: ImmutablePropTypes.map,
   addNewPiece: PropTypes.func,
   currentClientId: PropTypes.number,
+  requestLoadStory: PropTypes.func,
 };
 
 function mapStateToProps(state) {
@@ -48,6 +54,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   const actionMapping = {
     addNewPiece: actions.requestAddNewPiece,
+    requestLoadStory: actions.requestStory,
   };
 
   return bindActionCreators(actionMapping, dispatch);

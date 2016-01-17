@@ -1,5 +1,6 @@
 import actionConstants from 'app/actions/constants';
 import { combineReducers } from 'redux';
+import Immutable from 'immutable';
 
 function someValues(state = [], action) {
   switch (action.type) {
@@ -10,8 +11,10 @@ function someValues(state = [], action) {
   }
 }
 
-function story(state = {}, action) {
+function story(state = Immutable.fromJS({}), action) {
   switch (action.type) {
+    case actionConstants.LOAD_STORY:
+      return action.story;
     case actionConstants.ADD_NEW_PIECE:
       const currentStory = state;
       let pieces = currentStory.get('pieces');
