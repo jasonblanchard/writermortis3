@@ -3,19 +3,17 @@ import ReactDOM from 'react-dom';
 import routes from 'app/routes';
 import { Provider } from 'react-redux';
 import configureStore from 'app/configureStore';
-import { Router } from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
+import { Router, browserHistory } from 'react-router';
 import '../scss/site.scss';
 
-const history = createBrowserHistory();
-
-const initialState = JSON.parse(document.getElementById('init-data').value);
+// const initialState = JSON.parse(document.getElementById('init-data').value);
+const initialState = require('../../server_src/server/fixtures/initialStateFixture');
 
 const store = configureStore(initialState);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history} routes={routes} />
+    <Router history={browserHistory} routes={routes} />
   </Provider>,
   document.getElementById('app')
 );

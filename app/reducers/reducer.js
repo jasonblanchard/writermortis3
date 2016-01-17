@@ -10,8 +10,16 @@ function someValues(state = [], action) {
   }
 }
 
+function story(state = {}, action) {
+  switch (action.type) {
+    default:
+      return state;
+  }
+}
+
 const app = combineReducers({
   someValues,
+  story,
 });
 
 export default app;

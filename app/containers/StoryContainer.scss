@@ -1,0 +1,16 @@
+.StoryContainer {
+  display: flex;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.StoryContainer-StoryWrapper {
+  box-sizing: border-box;
+  width: 80%;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
