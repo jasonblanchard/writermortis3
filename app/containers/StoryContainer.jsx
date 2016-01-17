@@ -30,7 +30,7 @@ class StoryContainer extends Component {
         </div>
         <div className="StoryContainer-StoryStatsWrapper">
           <h3>stats</h3>
-          <StoryStats />
+          <StoryStats story={story}/>
         </div>
       </div>
     );
