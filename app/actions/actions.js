@@ -30,13 +30,18 @@ export function loadEntities(entities) {
 }
 
 export function requestAddNewPiece(story, piece) {
-  return function (dispatch) {
+  return function (dispatch, getState) {
+    const { currentClientId } = getState();
+    const pieceParams = piece.set('clientUser', {
+      id: currentClientId,
+    });
+
     fetch(`/api/stories/${story.get('id')}/pieces`, {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'post',
-      body: JSON.stringify({ piece }),
+      body: JSON.stringify({ piece: pieceParams.toJS() }),
     }).then(response => {
       return response.json();
     }).then(newPiece => {
