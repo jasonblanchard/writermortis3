@@ -22,9 +22,11 @@ export default class StoryEditor extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onSubmit(this.props.story.get('id'), {
+    this.props.onSubmit(this.props.story, {
       text: this.state.newPiece,
-      clientId: this.props.currentClientId,
+      clientUser: {
+        id: this.props.currentClientId,
+      },
     });
     this.setState({
       newPiece: '',
@@ -32,7 +34,7 @@ export default class StoryEditor extends Component {
   }
 
   isCurrentClientLastAuthor() {
-    return this.props.currentClientId === this.props.story.get('pieces').last().get('clientId');
+    return this.props.currentClientId === this.props.story.get('pieces').last().get('clientUser').get('id');
   }
 
   renderForm() {

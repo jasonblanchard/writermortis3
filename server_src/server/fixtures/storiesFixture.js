@@ -8,12 +8,16 @@ module.exports = [
       {
         id: 1,
         text: 'Once upon a time',
-        clientId: 1,
+        clientUser: {
+          id: 1,
+        },
       },
       {
         id: 2,
         text: ' an elephant ate an apple. He like it very much.',
-        clientId: 2,
+        clientUser: {
+          id: 2,
+        },
       },
     ],
   },

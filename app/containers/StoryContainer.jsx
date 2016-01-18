@@ -2,10 +2,11 @@ import * as actions from 'app/actions/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import Immutable from 'immutable';
 import React, { Component, PropTypes } from 'react';
 import Story from 'app/components/Story';
 import StoryEditor from 'app/components/StoryEditor';
-import StoryStats from 'app/components/StoryStats';
+// import StoryStats from 'app/components/StoryStats';
 import './StoryContainer.scss';
 
 class StoryContainer extends Component {
@@ -30,7 +31,7 @@ class StoryContainer extends Component {
         </div>
         <div className="StoryContainer-StoryStatsWrapper">
           <h3>stats</h3>
-          <StoryStats story={story}/>
+          TODO: Story Stats
         </div>
       </div>
     );
@@ -46,8 +47,20 @@ StoryContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
+  let story = Immutable.fromJS({});
+
+  if (state.currentStoryId) {
+    story = state.entities.get('story').get(String(state.currentStoryId));
+    let pieces = story.get('pieces').map(pieceId => state.entities.get('piece').get(String(pieceId)));
+    pieces = pieces.map(piece => {
+      const user = state.entities.get('clientUser').get(String(piece.get('clientUser')));
+      return piece.set('clientUser', user);
+    });
+    story = story.set('pieces', pieces);
+  }
+
   return {
-    story: state.story,
+    story,
     currentClientId: state.currentClientId,
   };
 }

@@ -1,6 +1,19 @@
 import actionConstants from 'app/actions/constants';
 import fetch from 'isomorphic-fetch';
 import Immutable from 'immutable';
+import { normalize, Schema, arrayOf } from 'normalizr';
+
+const storySchema = new Schema('story');
+const pieceSchema = new Schema('piece');
+const clientUserSchema = new Schema('clientUser');
+
+storySchema.define({
+  pieces: arrayOf(pieceSchema),
+});
+
+pieceSchema.define({
+  clientUser: clientUserSchema,
+});
 
 export function addNewPiece(piece) {
   return {
@@ -9,9 +22,16 @@ export function addNewPiece(piece) {
   };
 }
 
-export function requestAddNewPiece(storyId, piece) {
+export function loadEntities(entities) {
+  return {
+    type: actionConstants.LOAD_ENTITIES,
+    entities,
+  };
+}
+
+export function requestAddNewPiece(story, piece) {
   return function (dispatch) {
-    fetch(`/api/stories/${storyId}/pieces`, {
+    fetch(`/api/stories/${story.get('id')}/pieces`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -20,15 +40,17 @@ export function requestAddNewPiece(storyId, piece) {
     }).then(response => {
       return response.json();
     }).then(newPiece => {
-      dispatch(addNewPiece(Immutable.fromJS(newPiece)));
+      const updatedStory = story.set('pieces', story.get('pieces').push(newPiece)).toJS();
+      const entities = normalize(updatedStory, storySchema).entities;
+      dispatch(loadEntities(Immutable.fromJS(entities)));
     });
   };
 }
 
-export function loadStory(story) {
+export function loadCurrentStory(storyId) {
   return {
-    type: actionConstants.LOAD_STORY,
-    story,
+    type: actionConstants.LOAD_CURRENT_STORY,
+    storyId,
   };
 }
 
@@ -37,7 +59,9 @@ export function requestStory(storyId) {
     fetch(`/api/stories/${storyId}`).then((response) => {
       return response.json();
     }).then((story) => {
-      dispatch(loadStory(Immutable.fromJS(story)));
+      const entities = normalize(story, storySchema).entities;
+      dispatch(loadEntities(Immutable.fromJS(entities)));
+      dispatch(loadCurrentStory(story.id)); // TODO: Does this belong here?
     });
   };
 }

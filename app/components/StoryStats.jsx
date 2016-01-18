@@ -3,16 +3,16 @@ import React, { Component } from 'react';
 
 export default class StoryStats extends Component {
 
-  renderClient(piece) {
-    const clientId = piece.get('clientId');
-    return <div key={clientId}>{clientId}</div>;
+  renderClientUser(piece) {
+    const clientUser = piece.get('clientUser');
+    return <div key={clientUser.get('id')}>{clientUser.get('id')}</div>;
   }
 
   render() {
     const story = this.props.story;
     return (
       <div>
-        {story.get('pieces').map(this.renderClient)}
+        {story.get('pieces').map(this.renderClientUser)}
       </div>
     );
   }
