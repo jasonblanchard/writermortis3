@@ -4,6 +4,7 @@ import express from 'express';
 import exphbs from 'express-handlebars';
 import bodyParser from 'body-parser';
 import stories from './fixtures/storiesFixture';
+import socketio from 'socket.io';
 
 const PORT = process.env.PORT || 8080;
 
@@ -33,6 +34,15 @@ app.get('/api/stories/:id', (req, res) => {
   res.json(currentStory);
 });
 
+const EventEmitter = require('events');
+const util = require('util');
+function MyEmitter() {
+  EventEmitter.call(this);
+}
+util.inherits(MyEmitter, EventEmitter);
+
+const myEmitter = new MyEmitter();
+
 app.post('/api/stories/:id/pieces', (req, res) => {
   const storyId = Number(req.params.id);
   const currentStoryIndex = stories.findIndex(story => story.id === storyId);
@@ -40,6 +50,7 @@ app.post('/api/stories/:id/pieces', (req, res) => {
   newPiece.id = id++;
   stories[currentStoryIndex].pieces.push(newPiece);
   res.json(newPiece);
+  myEmitter.emit('event', stories[currentStoryIndex]);
 });
 
 app.get('/*', (req, res) => {
@@ -57,3 +68,13 @@ app.get('/*', (req, res) => {
 
 console.log(`listening on port ${PORT}`);
 app.listen(PORT);
+
+const io = socketio.listen(8081);
+
+io.on('connection', (socket) => {
+  console.log('client connected');
+  myEmitter.on('event', (story) => {
+    console.log('emitting update');
+    socket.emit('update', story);
+  });
+});

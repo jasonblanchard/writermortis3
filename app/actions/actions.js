@@ -3,9 +3,9 @@ import fetch from 'isomorphic-fetch';
 import Immutable from 'immutable';
 import { normalize, Schema, arrayOf } from 'normalizr';
 
-const storySchema = new Schema('story');
-const pieceSchema = new Schema('piece');
-const clientUserSchema = new Schema('clientUser');
+export const storySchema = new Schema('story');
+export const pieceSchema = new Schema('piece');
+export const clientUserSchema = new Schema('clientUser');
 
 storySchema.define({
   pieces: arrayOf(pieceSchema),

@@ -5,19 +5,14 @@ import { Provider } from 'react-redux';
 import configureStore from 'app/configureStore';
 import { Router, browserHistory } from 'react-router';
 import '../scss/site.scss';
+import io from 'socket.io-client';
+import { storySchema, loadEntities } from 'app/actions/actions';
+import { normalize } from 'normalizr';
+import Immutable from 'immutable';
+
+import { guid } from 'app/utils/guid';
 
 // const initialState = JSON.parse(document.getElementById('init-data').value);
-
-// TODO: Move this.
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-    s4() + '-' + s4() + s4() + s4();
-}
 
 let currentClientId = localStorage.getItem('clientId');
 
@@ -36,3 +31,10 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app')
 );
+
+const socket = io.connect('http://localhost:8081/');
+
+socket.on('update', (story) => {
+  const entities = normalize(story, storySchema).entities;
+  store.dispatch(loadEntities(Immutable.fromJS(entities)));
+});
