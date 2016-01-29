@@ -14,7 +14,7 @@ module.exports = [
       },
       {
         id: 2,
-        text: ' an elephant ate an apple. He like it very much.',
+        text: ' an elephant ate an apple. He like it very much. Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.',
         clientUser: {
           id: 2,
         },

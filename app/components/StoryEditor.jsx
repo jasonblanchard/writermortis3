@@ -2,6 +2,8 @@ import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import React, { Component, PropTypes } from 'react';
 
+import './StoryEditor.scss';
+
 export default class StoryEditor extends Component {
 
   constructor(props) {
@@ -52,7 +54,13 @@ export default class StoryEditor extends Component {
     return (
       <div className="StoryEditor">
         <div className="StoryEditor-pieceWrapper">
-          <p>{piece.get('text')}</p>
+          <div className="StoryEditor-lastPieceMask"></div>
+          <div className="StoryEditor-lastPiece">
+            <p>{piece.get('text')}</p>
+          </div>
+          <div className="StoryEditor-newPiece">
+            <p>{this.state.newPiece}</p>
+          </div>
         </div>
         <div className="StoryEditor-pieceComposerWrapper">
           {this.isCurrentClientLastAuthor() ? 'You added the last piece' : this.renderForm()}
