@@ -40,6 +40,10 @@ var configs = [
           include: path.join(__dirname, 'app')
         },
         {
+          test: /\.json$/,
+          loader: 'json'
+        },
+        {
           test: /\.s?css$/,
           loaders: [
             ExtractTextPlugin.extract('style'),
@@ -51,7 +55,7 @@ var configs = [
       ]
     },
     resolve: {
-      extensions: ['', '.js', '.jsx']
+      extensions: ['', '.js', '.jsx', '.json']
     },
   }
 ];

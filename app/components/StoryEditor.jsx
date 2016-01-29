@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import MarkdownIt from 'markdown-it';
 import React, { Component, PropTypes } from 'react';
 
 import './StoryEditor.scss';
@@ -10,7 +11,7 @@ export default class StoryEditor extends Component {
     super(props);
 
     this.state = {
-      newPiece: '',
+      newPieceText: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -19,17 +20,17 @@ export default class StoryEditor extends Component {
 
   handleChange(event) {
     this.setState({
-      newPiece: event.target.value,
+      newPieceText: event.target.value,
     });
   }
 
   handleSubmit(event) {
     event.preventDefault();
     this.props.onSubmit(this.props.story, Immutable.fromJS({
-      text: this.state.newPiece,
+      text: this.state.newPieceText,
     }));
     this.setState({
-      newPiece: '',
+      newPieceText: '',
     });
   }
 
@@ -37,11 +38,19 @@ export default class StoryEditor extends Component {
     return this.props.currentClientId === this.props.story.get('pieces').last().get('clientUser').get('id');
   }
 
+  renderMarkdown(markdown) {
+    const md = new MarkdownIt();
+
+    return {
+      __html: md.render(markdown),
+    };
+  }
+
   renderForm() {
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
-          <textarea value={this.state.newPiece} onChange={this.handleChange} />
+          <textarea value={this.state.newPieceText} onChange={this.handleChange} />
         </div>
         <input type="submit" value="add" />
       </form>
@@ -55,12 +64,8 @@ export default class StoryEditor extends Component {
       <div className="StoryEditor">
         <div className="StoryEditor-pieceWrapper">
           <div className="StoryEditor-lastPieceMask"></div>
-          <div className="StoryEditor-lastPiece">
-            <p>{piece.get('text')}</p>
-          </div>
-          <div className="StoryEditor-newPiece">
-            <p>{this.state.newPiece}</p>
-          </div>
+          <div className="StoryEditor-lastPiece" dangerouslySetInnerHTML={this.renderMarkdown(piece.get('text'))} />
+          <div className="StoryEditor-newPiece" dangerouslySetInnerHTML={this.renderMarkdown(this.state.newPieceText)}/>
         </div>
         <div className="StoryEditor-pieceComposerWrapper">
           {this.isCurrentClientLastAuthor() ? 'You added the last piece' : this.renderForm()}
