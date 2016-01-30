@@ -4,14 +4,12 @@
   position: relative;
 }
 
+.StoryEditor-lastPieces {
+  display: inline;
+}
+
 .StoryEditor-lastPiece {
   display: inline;
-
-  p {
-    &:last-child {
-      display: inline;
-    }
-  }
 }
 
 .StoryEditor-lastPieceMask {

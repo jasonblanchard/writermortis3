@@ -1,13 +1,13 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import React, { Component } from 'react';
 
-export default class Story extends Component {
+import formatMarkdown from 'app/utils/formatMarkdown';
+import './Story.scss';
 
+export default class Story extends Component {
   renderPiece(piece) {
     return (
-      <p key={piece.get('id')}>
-        {piece.get('text')}
-      </p>
+      <div className="Story-piece" key={piece.get('id')} dangerouslySetInnerHTML={formatMarkdown(piece.get('text'))} />
     );
   }
 
@@ -16,7 +16,7 @@ export default class Story extends Component {
     return (
       <div>
         [complete]
-        {story.get('pieces').map(this.renderPiece)}
+        {story.get('pieces').map(this.renderPiece.bind(this))}
       </div>
     );
   }
