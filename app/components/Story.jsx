@@ -15,7 +15,6 @@ export default class Story extends Component {
     const story = this.props.story;
     return (
       <div>
-        [complete]
         {story.get('pieces').map(this.renderPiece.bind(this))}
       </div>
     );

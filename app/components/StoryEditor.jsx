@@ -52,8 +52,10 @@ export default class StoryEditor extends Component {
 
   renderPiece(piece, index) {
     const className = classNames('StoryEditor-lastPiece', { 'StoryEditor-penultimatePiece': index === 0 });
+    const length = piece.get('text').length;
+    const text = index !== 0 ? piece.get('text') : piece.get('text').slice(length - 150, length);
     return (
-      <div key={index} className={className} dangerouslySetInnerHTML={formatMarkdown(piece.get('text'))} />
+      <div key={index} className={className} dangerouslySetInnerHTML={formatMarkdown(text)} />
     );
   }
 
