@@ -46,14 +46,14 @@ export default class StoryEditor extends Component {
     return this.props.currentClientId === this.props.story.get('pieces').last().get('clientUser').get('id');
   }
 
-  renderForm() {
+  renderComposer() {
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
           <textarea className="StoryEditor-newPieceInput" value={this.state.newPieceText} onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
-          <span className="meta">
+          <div className="meta">
             Style text with <a href="https://daringfireball.net/projects/markdown/" target="_blank">markdown</a>. Shift + Entery to submit.
-          </span>
+          </div>
         </div>
         <input type="submit" value="add" />
       </form>
@@ -63,7 +63,7 @@ export default class StoryEditor extends Component {
   renderPiece(piece, index) {
     const className = classNames('StoryEditor-lastPiece', { 'StoryEditor-penultimatePiece': index === 0 });
     const length = piece.get('text').length;
-    const text = index !== 0 ? piece.get('text') : piece.get('text').slice(length - 150, length);
+    const text = (index !== 0) || (length > 1) ? piece.get('text') : piece.get('text').slice(length - 150, length);
     return (
       <div key={index} className={className} dangerouslySetInnerHTML={formatMarkdown(text)} />
     );
@@ -74,7 +74,7 @@ export default class StoryEditor extends Component {
     const pieceLength = story.get('pieces').size;
     const visiblePieces = story.get('pieces').slice(pieceLength - 2, pieceLength);
     return (
-      <div className="StoryEditor">
+      <div className="StoryEditor story">
         <div className="StoryEditor-pieceWrapper">
           {pieceLength > 0 ? <div className="StoryEditor-lastPieceMask"></div> : null}
           <div className="StoryEditor-lastPieces">
@@ -83,7 +83,7 @@ export default class StoryEditor extends Component {
           <div className="StoryEditor-newPiece" dangerouslySetInnerHTML={formatMarkdown(this.state.newPieceText)}/>
         </div>
         <div className="StoryEditor-pieceComposerWrapper">
-          {this.isCurrentClientLastAuthor() ? 'You added the last piece. Wait for someone to continue the story!' : this.renderForm()}
+          {this.isCurrentClientLastAuthor() ? <div className="meta">You added the last part. Wait for someone to continue the story!</div> : this.renderComposer()}
         </div>
       </div>
     );

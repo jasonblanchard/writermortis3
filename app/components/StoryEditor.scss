@@ -1,3 +1,5 @@
+@import 'app/scss/settings';
+
 .StoryEditor-pieceWrapper {
   min-height: 100px;
   padding-top: 5px;
@@ -33,4 +35,9 @@
 .StoryEditor-newPieceInput {
   min-height: 100px;
   width: 100%;
+}
+
+.StoryEditor-pieceComposerWrapper {
+  border-top: 1px solid darken($theme-background, 10);
+  padding-top: 8px;
 }
