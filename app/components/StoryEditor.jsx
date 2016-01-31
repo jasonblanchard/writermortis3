@@ -12,11 +12,12 @@ export default class StoryEditor extends Component {
     super(props);
 
     this.state = {
-      newPieceText: '',
+      newPieceText: ' ',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   handleChange(event) {
@@ -26,13 +27,19 @@ export default class StoryEditor extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    if (event) event.preventDefault();
     this.props.onSubmit(this.props.story, Immutable.fromJS({
       text: this.state.newPieceText,
     }));
     this.setState({
       newPieceText: '',
     });
+  }
+
+  handleKeyDown(event) {
+    if ((event.keyCode === 13) && (event.shiftKey)) {
+      this.handleSubmit();
+    }
   }
 
   isCurrentClientLastAuthor() {
@@ -43,7 +50,10 @@ export default class StoryEditor extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
-          <textarea className="StoryEditor-newPieceInput" value={this.state.newPieceText} onChange={this.handleChange} />
+          <textarea className="StoryEditor-newPieceInput" value={this.state.newPieceText} onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
+          <span className="meta">
+            Style text with <a href="https://daringfireball.net/projects/markdown/" target="_blank">markdown</a>. Shift + Entery to submit.
+          </span>
         </div>
         <input type="submit" value="add" />
       </form>

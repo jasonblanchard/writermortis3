@@ -30,8 +30,6 @@ class StoryContainer extends Component {
           {this.isStoryComplete() ? <Story story={story} /> : <StoryEditor currentClientId={currentClientId} story={story} onSubmit={addNewPiece} />}
         </div>
         <div className="StoryContainer-StoryStatsWrapper">
-          <h3>stats</h3>
-          TODO: Story Stats
         </div>
       </div>
     );
