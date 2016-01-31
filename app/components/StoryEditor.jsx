@@ -76,7 +76,7 @@ export default class StoryEditor extends Component {
     return (
       <div className="StoryEditor story">
         <div className="StoryEditor-pieceWrapper">
-          {pieceLength > 0 ? <div className="StoryEditor-lastPieceMask"></div> : null}
+          {pieceLength > 1 ? <div className="StoryEditor-lastPieceMask"></div> : null}
           <div className="StoryEditor-lastPieces">
             {visiblePieces.map(this.renderPiece)}
           </div>
