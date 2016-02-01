@@ -10,7 +10,10 @@ import { storySchema, loadEntities } from 'app/actions/actions';
 import { normalize } from 'normalizr';
 import Immutable from 'immutable';
 
+import env from '../../env';
 import { guid } from 'app/utils/guid';
+
+const config = env[process.env.NODE_ENV || 'development'];
 
 // const initialState = JSON.parse(document.getElementById('init-data').value);
 
@@ -32,7 +35,7 @@ ReactDOM.render(
   document.getElementById('app')
 );
 
-const socket = io.connect('http://localhost:8081/');
+const socket = io.connect(`http://${config.HOST}`);
 
 socket.on('update', (story) => {
   const entities = normalize(story, storySchema).entities;

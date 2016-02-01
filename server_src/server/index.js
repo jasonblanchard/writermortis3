@@ -3,6 +3,7 @@ import env from '../../env.json';
 import express from 'express';
 import exphbs from 'express-handlebars';
 import bodyParser from 'body-parser';
+import { createServer } from 'http';
 import stories from './fixtures/storiesFixture';
 import socketio from 'socket.io';
 
@@ -67,9 +68,10 @@ app.get('/*', (req, res) => {
 });
 
 console.log(`listening on port ${PORT}`);
-app.listen(PORT);
 
-const io = socketio.listen(8081);
+const server = createServer(app);
+
+const io = socketio.listen(server);
 
 io.on('connection', (socket) => {
   console.log('client connected');
@@ -78,3 +80,5 @@ io.on('connection', (socket) => {
     socket.emit('update', story);
   });
 });
+
+server.listen(8080);
