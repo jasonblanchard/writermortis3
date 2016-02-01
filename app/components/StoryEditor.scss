@@ -41,3 +41,7 @@
   border-top: 1px solid darken($theme-background, 10);
   padding-top: 8px;
 }
+
+.StoryEditor-formActions {
+  justify-content: space-between;
+}

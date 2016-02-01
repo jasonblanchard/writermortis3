@@ -37,7 +37,7 @@ export default class StoryEditor extends Component {
   }
 
   handleKeyDown(event) {
-    if ((event.keyCode === 13) && (event.shiftKey)) {
+    if ((event.keyCode === 13) && (event.metaKey)) {
       this.handleSubmit();
     }
   }
@@ -50,12 +50,14 @@ export default class StoryEditor extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
-          <textarea className="StoryEditor-newPieceInput" value={this.state.newPieceText} onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
-          <div className="meta">
-            Style text with <a href="https://daringfireball.net/projects/markdown/" target="_blank">markdown</a>. Shift + Entery to submit.
+          <textarea className="StoryEditor-newPieceInput" value={this.state.newPieceText} aria-label="Add to the story" onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
+          <div className="flex StoryEditor-formActions">
+            <div className="meta">
+              Style text with <a href="https://daringfireball.net/projects/markdown/" target="_blank">markdown</a>. &#8984; + Enter to submit.
+            </div>
+            <input type="submit" value="add" />
           </div>
         </div>
-        <input type="submit" value="add" />
       </form>
     );
   }
