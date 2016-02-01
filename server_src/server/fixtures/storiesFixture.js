@@ -2,7 +2,7 @@ module.exports = [
   {
     id: 123,
     title: 'True American hero',
-    maxPieces: 5,
+    maxPieces: 10,
     pieceMaxSentences: 3,
     pieces: [
       {

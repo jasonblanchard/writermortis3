@@ -13,11 +13,25 @@ export default class StoryEditor extends Component {
 
     this.state = {
       newPieceText: ' ',
+      updating: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.story.get('pieces').size !== nextProps.story.get('pieces').size) {
+      this.showFlash();
+    }
+  }
+
+  showFlash() {
+    this.setState({ updating: true });
+    setTimeout(() => {
+      this.setState({ updating: false });
+    }, 1000);
   }
 
   handleChange(event) {
@@ -75,9 +89,10 @@ export default class StoryEditor extends Component {
     const story = this.props.story;
     const pieceLength = story.get('pieces').size;
     const visiblePieces = story.get('pieces').slice(pieceLength - 2, pieceLength);
+    const pieceWrapperClassName = classNames('StoryEditor-pieceWrapper', { updating: this.state.updating });
     return (
       <div className="StoryEditor story">
-        <div className="StoryEditor-pieceWrapper">
+        <div className={pieceWrapperClassName}>
           {pieceLength > 1 ? <div className="StoryEditor-lastPieceMask"></div> : null}
           <div className="StoryEditor-lastPieces">
             {visiblePieces.map(this.renderPiece)}

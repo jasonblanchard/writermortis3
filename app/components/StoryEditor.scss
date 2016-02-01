@@ -4,6 +4,24 @@
   min-height: 100px;
   padding-top: 5px;
   position: relative;
+
+  &.updating {
+    animation-duration: 200ms;
+    animation-iteration-count: 1;
+    animation-name: updated;
+    animation-timing-function: ease-in-out;
+  }
+}
+
+@keyframes updated {
+  0% {
+    background-color: #efab57;
+    opacity: 1;
+  }
+
+  100% {
+    background-color: rgba(239, 171, 87, 0);
+  }
 }
 
 .StoryEditor-lastPieces {
@@ -39,6 +57,7 @@
 
 .StoryEditor-pieceComposerWrapper {
   border-top: 1px solid darken($theme-background, 10);
+  margin-top: 20px;
   padding-top: 8px;
 }
 
