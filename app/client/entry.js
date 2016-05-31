@@ -15,8 +15,6 @@ import { guid } from 'app/utils/guid';
 
 const config = env[process.env.NODE_ENV || 'development'];
 
-// const initialState = JSON.parse(document.getElementById('init-data').value);
-
 let currentClientId = localStorage.getItem('clientId');
 
 if (!currentClientId) {

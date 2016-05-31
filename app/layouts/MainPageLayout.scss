@@ -1,13 +1,14 @@
 @import 'app/scss/settings';
 
-.RootContainer-headerWrapper {
+.MainPageLayout-headerWrapper {
+  align-items: center;
   background: $theme-medium-color;
   display: flex;
   justify-content: space-between;
   padding: 8px;
 }
 
-.RootContainer-mainNav {
+.MainPageLayout-mainNav {
   font-weight: bold;
 
   ul {
@@ -16,7 +17,7 @@
   }
 }
 
-.RootContainer-mainNavLinks {
+.MainPageLayout-mainNavLinks {
   display: flex;
 
   li {
@@ -35,7 +36,7 @@
   }
 }
 
-.RootContainer-mainContent {
+.MainPageLayout-mainContent {
   margin-top: 10px;
   padding: 8px;
 }

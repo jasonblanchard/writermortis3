@@ -5,16 +5,12 @@ import { Provider } from 'react-redux';
 import configureStore from '../../app/configureStore';
 import initialState from './fixtures/initialStateFixture';
 import routes from '../../app/routes';
-import createLocation from 'history/lib/createLocation';
 import { RoutingContext, match } from 'react-router';
 
 const store = configureStore(initialState);
-const data = initialState;
 const config = env[process.env.NODE_ENV || 'development'];
 
 export default (req, res) => {
-  const location = createLocation(req.url);
-
   match({ routes, location }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search);
@@ -31,7 +27,6 @@ export default (req, res) => {
 
       res.render('index', {
         markup,
-        initialState: JSON.stringify(data),
         scriptSource: config.SCRIPT_SOURCE,
         styleSource: config.STYLE_SOURCE,
       });
